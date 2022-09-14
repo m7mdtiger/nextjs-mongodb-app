@@ -31,7 +31,10 @@ export async function getMongoClient() {
    * https://github.com/vercel/next.js/pull/17666
    */
   if (!global.mongoClientPromise) {
-    const client = new MongoClient(process.env.MONGODB_URI);
+    const client = new MongoClient(process.env.MONGODB_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
     // client.connect() returns an instance of MongoClient when resolved
     global.mongoClientPromise = client
       .connect()
